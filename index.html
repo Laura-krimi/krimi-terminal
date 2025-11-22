@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Polizei-Terminal</title>
+<style>
+body {
+    background: black;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    padding: 20px;
+}
+input, button {
+    background: #003300;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 6px;
+}
+#menu { display: none; margin-top: 20px; }
+#doc { margin-top: 20px; white-space: pre-wrap; }
+button { margin-right: 10px; }
+</style>
+</head>
+<body>
+
+<h2>✦ Polizei-Komputerzugang</h2>
+
+<div id="login">
+  Passwort: <input type="password" id="pw">
+  <button onclick="checkPW()">Login</button>
+  <p id="msg"></p>
+</div>
+
+<div id="menu">
+  <h3>Zugriff gewährt</h3>
+  <button onclick="showDoc('verhoer')">Verhörprotokoll</button>
+  <button onclick="showDoc('obduktion')">Obduktionsbericht</button>
+  <button onclick="showDoc('liste')">Verdächtigenliste</button>
+  <button onclick="logout()">Logout</button>
+
+  <div id="doc"></div>
+</div>
+
+<script>
+const password = "alpha23";  // <<< DEIN PASSWORT HIER
+
+function checkPW() {
+    if (document.getElementById("pw").value === password) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("menu").style.display = "block";
+    } else {
+        document.getElementById("msg").textContent = "❌ Falsches Passwort!";
+    }
+}
+
+function showDoc(doc) {
+    const docs = {
+        verhoer: "Verhörprotokoll:\nDer Zeuge behauptet, um 23:10 Uhr eine Person am Tatort gesehen zu haben...",
+        obduktion: "Obduktionsbericht:\nTodeszeitpunkt ca. 22:30 Uhr. Keine Abwehrspuren...",
+        liste: "Verdächtigenliste:\n1. Thomas M.\n2. Claudia S.\n3. Unbekannte Person („Rabe“)..."
+    };
+    document.getElementById("doc").textContent = docs[doc];
+}
+
+function logout() {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("login").style.display = "block";
+    document.getElementById("pw").value = "";
+    document.getElementById("msg").textContent = "";
+    document.getElementById("doc").textContent = "";
+}
+</script>
+
+</body>
+</html>
